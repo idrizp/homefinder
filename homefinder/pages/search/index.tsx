@@ -66,23 +66,30 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     };
   }
 
-  const result = await prepareResponse(query as string);
+  try {
+    const result = await prepareResponse(query as string);
 
-  const homes = await prisma.home.findMany({
-    where: {
-      address: result.location,
-      price: {
-        lte: currencyConversion(result.price, result.priceCurrency),
+    const homes = await prisma.home.findMany({
+      where: {
+        address: result.location,
+        price: {
+          lte: currencyConversion(result.price, result.priceCurrency),
+        },
+        size: {
+          lte: sizeToNumber(result.houseSize),
+        },
       },
-      size: {
-        lte: sizeToNumber(result.houseSize),
+    });
+    return {
+      props: {
+        result,
+        homes,
       },
-    },
-  });
-  return {
-    props: {
-      result,
-      homes,
-    },
-  };
+    };
+  } catch (e) {
+    return {
+      redirect: "/error/processing",
+      props: {},
+    };
+  }
 };

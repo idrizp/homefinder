@@ -1,14 +1,20 @@
 import React from "react";
 
-const keywords = ["hello", "world"];
-const title = "Home in Antarctica";
-const location = "Antarctica";
-const price = "$100,000";
-const size = 250;
-const description =
-  "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Amet sequi rerum, voluptate aliquam sapiente veritatis aliquid reprehenderit explicabo illo eos, eius iure optio qui? Tenetur suscipit ipsa quidem? Incidunt nihil amet cum, esse ducimus enim nam est voluptatibus consectetur eligendi alias fugit facilis tenetur dolore aliquid ad asperiores vero reprehenderit.";
-
-export default function DetailsPage() {
+export default function DetailsPage({
+  keywords,
+  title,
+  location,
+  price,
+  size,
+  description,
+}: {
+  keywords: string[];
+  title: string;
+  location: string;
+  price: string;
+  size: number;
+  description: string;
+}) {
   return (
     <div className="flex-1 bg-accent p-5 md:flex md:flex-col md:place-items-center md:place-content-center">
       <img

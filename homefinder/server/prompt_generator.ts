@@ -49,21 +49,21 @@ export const currencyConversion = (price: number, currency: string) => {
 
 export async function prepareResponse(message: string): Promise<Output> {
   // Make a GET request using fetch to the API which is at localhost:3000 and return the response data casted to type Output
-  console.log(message);
-  console.log(
-    `${process.env.PROCESSOR_API_ENDPOINT}/${encodeURIComponent(message)}`
-  );
-  const response = await fetch(
-    `${process.env.PROCESSOR_API_ENDPOINT}/${encodeURIComponent(message)}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }
-  );
-  const data = await response.json();
-  return data as Output;
+  try {
+    const response = await fetch(
+      `${process.env.PROCESSOR_API_ENDPOINT}/${encodeURIComponent(message)}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    const data = await response.json();
+    return data as Output;
+  } catch (e) {
+    throw e;
+  }
 }
 
 export async function getMainKeywords(description: string) {}
